@@ -22,6 +22,8 @@ Route::get('/', function () {
 
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 
+Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
 
 Route::middleware([
     'auth:sanctum',
