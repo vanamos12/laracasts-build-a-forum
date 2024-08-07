@@ -2,7 +2,7 @@
     
     <AppLayout>
         <Container>
-            <ul class="divide-y-">
+            <ul class="divide-y">
                 <li class="" v-for="post in posts.data" :key="post.id">
                     <Link :href="route('posts.show', post.id)" class="group block px-2 py-4">
                         <span class="font-bold text-lg group-hover:text-indigo-500">{{ post.title }}</span>
@@ -22,13 +22,13 @@
 import Container from '@/Components/Container.vue';
 import Pagination from '@/Components/Pagination.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { relativeDate } from '@/Utilities/date';
 import { Link } from '@inertiajs/vue3';
-import { formatDistance, parseISO } from 'date-fns';
 
 defineProps(['posts'])
 
 const formattedDate = (post) => {
-   return formatDistance(parseISO(post.created_at), new Date()) 
+   return relativeDate(post.created_at);
 }
 
 </script>
