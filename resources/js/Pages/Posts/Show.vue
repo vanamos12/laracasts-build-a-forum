@@ -21,7 +21,7 @@
                 </form>
                 <ul class="divide-y mt-4">
                     <li class="px-2 py-4" v-for="comment in comments.data" :key="comment.id">
-                        <Comment :comment="comment" />
+                        <Comment @delete="deleteComment" :comment="comment" />
                     </li>
                 </ul>
 
@@ -43,7 +43,7 @@ import TextArea from '@/Components/TextArea.vue';
 import TextInput from '@/Components/TextInput.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { relativeDate } from '@/Utilities/date';
-import { useForm } from '@inertiajs/vue3';
+import { router,  useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const props = defineProps(['post', 'comments']);
@@ -59,4 +59,10 @@ const addComment = () => {
         onSuccess: () => commentForm.reset(),
     })
 };
+
+const deleteComment = (commentId) => {
+        return router.delete(route('comments.destroy', { comment: commentId, page: props.comments.meta.current_page }), {
+           preserveScroll: true, 
+        })
+    }
 </script>
